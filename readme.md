@@ -16,7 +16,7 @@ Design and implement a **governed data lake architecture** with:
 
 ---
 
-## 🏗️ Data Lake Architecture Overview
+##  Data Lake Architecture Overview
 
 ### Zones & Purpose
 | Zone | Purpose | Governance Level |
