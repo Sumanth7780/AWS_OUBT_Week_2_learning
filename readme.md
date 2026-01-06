@@ -16,7 +16,7 @@ Design and implement a **governed data lake architecture** with:
 
 ---
 
-## 🏗️ Data Lake Architecture Overview
+## Data Lake Architecture Overview
 
 ### Zones & Purpose
 | Zone | Purpose | Governance Level |
@@ -60,7 +60,7 @@ Design and implement a **governed data lake architecture** with:
 - Delta enables lakehouse reliability
 ![Glue Job Run](./data/day_6_aws_cli_run.png)
 ![Delta Table](./data/delta.png)
-[day_6_script](./scr/day6_datalake_delta_raw_to_validated_glue.py)
+[day_6_script](./glue_jobs/day6_datalake_delta_raw_to_validated_glue.py)
 ---
 
 ## Day 7 – ETL Pipelines with AWS Glue & PySpark
@@ -82,7 +82,7 @@ Design and implement a **governed data lake architecture** with:
 
 **Screenshots**
 ![Glue Job Run](./data/day_7_aws_cli_run.png)
-[day_7_script](./scr/day7_spark_enrich_and_catalog_prep.py)
+[day_7_script](./glue_jobs/day7_spark_enrich_and_catalog_prep.py)
 ![Delta Table](./data/enriched_delta.png)
 
 **Key Learnings**
@@ -116,10 +116,12 @@ Design and implement a **governed data lake architecture** with:
   - Steward queue
 
 **Screenshots**
-
+![glue_database_overview.png](./data/crawler_database.png)
+![glue_tables_list.png](./data/glue_crawler_tables.png)
+![curated_crawler](./data/curated_crawler.png)
 ![Glue Job Run](./data/day_8_aws_cli_run.png)
-[day_8_script](./scr/day8_glue_quality_gates_validated_to_curated.py)
-
+[day_8_script](./glue_jobs/day8_glue_quality_gates_validated_to_curated.py)
+![data_quality_rules](./governance/quality_rules.yaml)
 **Key Learnings**
 - Quality must be measurable
 - Business owners define thresholds
@@ -148,9 +150,12 @@ Design and implement a **governed data lake architecture** with:
 - Created steward review queue
 - Logged merge decisions
 
+**Dedup Pipeline**
+Source → Matching → Scoring → Decision
+
 **Screenshots**
-![Dedup Pipeline](./pics/dedup_pipeline.png)
-![Steward Queue](./pics/steward_queue.png)
+![day9-mdm-matching-dedup](./data/day9-mdm-matching-dedup.png)
+[day 9 script](./glue_jobs/day9_mdm_matching_dedup_engine.py)
 
 **Key Learnings**
 - Not all matches should be automated
@@ -179,7 +184,7 @@ Design and implement a **governed data lake architecture** with:
 - Used Delta Lake time travel for audits
 
 **Screenshots**
-![Delta Time Travel](./pics/delta_time_travel.png)
+![summary](./data/day_10_run_summary.png)
 
 **Key Learnings**
 - Auditability is mandatory
@@ -197,8 +202,6 @@ Design and implement a **governed data lake architecture** with:
 -  Steward review workflow design
 -  Data quality scorecard framework
 
-**Repository Structure**
-![Repo Structure](./pics/repo_structure.png)
 
 ---
 

@@ -1,0 +1,115 @@
+{
+  "dataset_name": "nyc_yellow_taxi_trip_records",
+  "description": "NYC TLC Yellow Taxi Trip Records with fare, location, payment, and congestion pricing details.",
+  "source": "NYC Taxi & Limousine Commission (TLC)",
+  "update_frequency": "Monthly",
+  "record_granularity": "One row per taxi trip",
+  "domain": "Transportation",
+  "data_owner": "NYC TLC",
+  "steward": "Data Engineering",
+  "classification": "Public",
+  "effective_date": "2025-03-18",
+  "schema": [
+    {
+      "name": "VendorID",
+      "type": "int",
+      "description": "TPEP provider code (1=Creative Mobile Technologies, 2=Curb Mobility, 6=Myle Technologies, 7=Helix)"
+    },
+    {
+      "name": "tpep_pickup_datetime",
+      "type": "timestamp",
+      "description": "Date and time when the meter was engaged"
+    },
+    {
+      "name": "tpep_dropoff_datetime",
+      "type": "timestamp",
+      "description": "Date and time when the meter was disengaged"
+    },
+    {
+      "name": "passenger_count",
+      "type": "int",
+      "description": "Number of passengers in the vehicle"
+    },
+    {
+      "name": "trip_distance",
+      "type": "double",
+      "description": "Elapsed trip distance in miles reported by the taximeter"
+    },
+    {
+      "name": "RatecodeID",
+      "type": "int",
+      "description": "Final rate code (1=Standard, 2=JFK, 3=Newark, 4=Nassau/Westchester, 5=Negotiated, 6=Group ride, 99=Unknown)"
+    },
+    {
+      "name": "store_and_fwd_flag",
+      "type": "string",
+      "description": "Y if trip was stored in vehicle memory before transmission, N otherwise"
+    },
+    {
+      "name": "PULocationID",
+      "type": "int",
+      "description": "TLC Taxi Zone where the meter was engaged"
+    },
+    {
+      "name": "DOLocationID",
+      "type": "int",
+      "description": "TLC Taxi Zone where the meter was disengaged"
+    },
+    {
+      "name": "payment_type",
+      "type": "int",
+      "description": "Payment method (0=Flex Fare, 1=Credit Card, 2=Cash, 3=No Charge, 4=Dispute, 5=Unknown, 6=Voided)"
+    },
+    {
+      "name": "fare_amount",
+      "type": "double",
+      "description": "Time-and-distance fare calculated by the meter"
+    },
+    {
+      "name": "extra",
+      "type": "double",
+      "description": "Miscellaneous extras and surcharges"
+    },
+    {
+      "name": "mta_tax",
+      "type": "double",
+      "description": "MTA tax automatically triggered based on metered rate"
+    },
+    {
+      "name": "tip_amount",
+      "type": "double",
+      "description": "Tip amount (credit card tips only; cash tips excluded)"
+    },
+    {
+      "name": "tolls_amount",
+      "type": "double",
+      "description": "Total tolls paid during the trip"
+    },
+    {
+      "name": "improvement_surcharge",
+      "type": "double",
+      "description": "Improvement surcharge applied at flag drop"
+    },
+    {
+      "name": "total_amount",
+      "type": "double",
+      "description": "Total amount charged to passengers (excluding cash tips)"
+    },
+    {
+      "name": "congestion_surcharge",
+      "type": "double",
+      "description": "NYS congestion surcharge collected for the trip"
+    },
+    {
+      "name": "airport_fee",
+      "type": "double",
+      "description": "Airport pickup fee (LaGuardia and JFK only)"
+    },
+    {
+      "name": "cbd_congestion_fee",
+      "type": "double",
+      "description": "Per-trip MTA Congestion Relief Zone fee (effective Jan 5, 2025)"
+    }
+  ]
+}
+
