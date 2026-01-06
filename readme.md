@@ -60,7 +60,7 @@ Design and implement a **governed data lake architecture** with:
 - Delta enables lakehouse reliability
 ![Glue Job Run](./data/day_6_aws_cli_run.png)
 ![Delta Table](./data/delta.png)
-[day_6_script](./scr/day6_datalake_delta_raw_to_validated_glue.py)
+[day_6_script](./glue_job/day6_datalake_delta_raw_to_validated_glue.py)
 ---
 
 ## Day 7 – ETL Pipelines with AWS Glue & PySpark
@@ -82,7 +82,7 @@ Design and implement a **governed data lake architecture** with:
 
 **Screenshots**
 ![Glue Job Run](./data/day_7_aws_cli_run.png)
-[day_7_script](./scr/day7_spark_enrich_and_catalog_prep.py)
+[day_7_script](./glue_job/day7_spark_enrich_and_catalog_prep.py)
 ![Delta Table](./data/enriched_delta.png)
 
 **Key Learnings**
@@ -118,7 +118,7 @@ Design and implement a **governed data lake architecture** with:
 **Screenshots**
 
 ![Glue Job Run](./data/day_8_aws_cli_run.png)
-[day_8_script](./scr/day8_glue_quality_gates_validated_to_curated.py)
+[day_8_script](./glue_job/day8_glue_quality_gates_validated_to_curated.py)
 
 **Key Learnings**
 - Quality must be measurable
@@ -151,7 +151,7 @@ Design and implement a **governed data lake architecture** with:
 **Screenshots**
 ![Dedup Pipeline](./pics/dedup_pipeline.png)
 ![Steward Queue](./pics/steward_queue.png)
-
+[day_9_script](./glue_job/day)
 **Key Learnings**
 - Not all matches should be automated
 - Steward workflows are critical
