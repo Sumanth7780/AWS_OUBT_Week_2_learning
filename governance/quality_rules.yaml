@@ -1,0 +1,94 @@
+version: 1
+domain: nyc_taxi_trips
+dataset: yellow_tripdata
+owner: data_owner_supply_chain
+steward: data_steward_ops
+last_updated: "2026-01-05"
+
+inputs:
+  validated_delta_path_param: "--VALIDATED_DELTA_PATH"
+outputs:
+  curated_delta_path_param: "--CURATED_DELTA_PATH"
+  rejects_path_param: "--REJECTS_PATH"
+  dq_report_path_param: "--DQ_REPORT_PATH"
+
+policy:
+  min_pass_rate_param: "--MIN_PASS_RATE"
+  default_min_pass_rate: 0.95
+  fail_job_if_below_threshold: true
+
+rules:
+  - id: trip_vendor_not_null
+    dimension: completeness
+    severity: high
+    description: VendorID must be present.
+    expression_sql: "VendorID IS NOT NULL"
+    action_on_fail: reject
+
+  - id: pickup_not_null
+    dimension: completeness
+    severity: high
+    description: Pickup timestamp must be present.
+    expression_sql: "tpep_pickup_datetime IS NOT NULL"
+    action_on_fail: reject
+
+  - id: dropoff_not_null
+    dimension: completeness
+    severity: high
+    description: Dropoff timestamp must be present.
+    expression_sql: "tpep_dropoff_datetime IS NOT NULL"
+    action_on_fail: reject
+
+  - id: pickup_before_dropoff
+    dimension: validity
+    severity: high
+    description: Pickup time must be <= dropoff time.
+    expression_sql: "tpep_pickup_datetime <= tpep_dropoff_datetime"
+    action_on_fail: reject
+
+  - id: pu_location_not_null
+    dimension: completeness
+    severity: high
+    description: PULocationID must be present.
+    expression_sql: "PULocationID IS NOT NULL"
+    action_on_fail: reject
+
+  - id: do_location_not_null
+    dimension: completeness
+    severity: high
+    description: DOLocationID must be present.
+    expression_sql: "DOLocationID IS NOT NULL"
+    action_on_fail: reject
+
+  - id: trip_distance_non_negative
+    dimension: validity
+    severity: medium
+    description: trip_distance must be >= 0.
+    expression_sql: "trip_distance IS NULL OR trip_distance >= 0"
+    action_on_fail: reject
+
+  - id: fare_amount_non_negative
+    dimension: validity
+    severity: medium
+    description: fare_amount must be >= 0.
+    expression_sql: "fare_amount IS NULL OR fare_amount >= 0"
+    action_on_fail: reject
+
+  - id: total_amount_non_negative
+    dimension: validity
+    severity: medium
+    description: total_amount must be >= 0.
+    expression_sql: "total_amount IS NULL OR total_amount >= 0"
+    action_on_fail: reject
+
+  - id: passenger_count_range
+    dimension: validity
+    severity: low
+    description: passenger_count should be between 0 and 8 (or null).
+    expression_sql: "passenger_count IS NULL OR (passenger_count >= 0 AND passenger_count <= 8)"
+    action_on_fail: reject
+
+reporting:
+  include_rule_fail_counts: true
+  include_pass_rate: true
+  include_top_failure_rules: true

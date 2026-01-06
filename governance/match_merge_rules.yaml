@@ -1,0 +1,56 @@
+version: 1
+domain: taxi_zones
+dataset: taxi_zone_lookup
+owner: data_owner_masterdata
+steward: data_steward_masterdata
+last_updated: "2026-01-05"
+
+entity_definition:
+  business_key: ["Borough", "Zone"]
+  technical_key: ["LocationID"]
+
+standardization:
+  zone_name:
+    uppercase: true
+    trim: true
+    remove_non_alphanum: true
+    collapse_whitespace: true
+  borough:
+    uppercase: true
+    trim: true
+
+blocking_keys:
+  - name: match_key
+    description: "Used to group candidate matches"
+    expression: "UPPER(TRIM(Borough)) || '::' || UPPER(TRIM(Zone))"
+
+match_scoring:
+  - feature: exact_match_on_match_key
+    score_if_true: 1.0
+  - feature: normalized_name_similarity
+    method: heuristic
+    notes: "Use deterministic scoring (1.0 exact else 0.85) unless ML matcher is added."
+
+thresholds:
+  high_confidence_auto_merge: 0.95
+  medium_confidence_steward_review: 0.80
+  low_confidence_reject_below: 0.80
+
+merge_policy:
+  strategy: survivorship
+  survivorship_rules:
+    - attribute: LocationID
+      rule: "MIN(LocationID) within match_key group"
+      rationale: "Stable canonical representative"
+    - attribute: Zone
+      rule: "FIRST_NON_NULL(Zone) ordered by LocationID"
+    - attribute: Borough
+      rule: "FIRST_NON_NULL(Borough) ordered by LocationID"
+    - attribute: service_zone
+      rule: "FIRST_NON_NULL(service_zone) ordered by LocationID"
+
+outputs:
+  master_delta: "s3://.../master_data/taxi_zones_delta/"
+  steward_queue_parquet: "s3://.../steward_queue/taxi_zones/"
+  rejects_parquet: "s3://.../rejects/taxi_zones/"
+  audit_path: "s3://.../audit/day9_mdm/"

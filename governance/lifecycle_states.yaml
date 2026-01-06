@@ -1,0 +1,38 @@
+version: 1
+domain: master_data
+entity: taxi_zones
+last_updated: "2026-01-05"
+
+states:
+  - name: PROPOSED
+    description: "New or changed record submitted; pending steward review."
+    allowed_transitions: ["ACTIVE", "REJECTED"]
+    required_fields: ["submitted_at_utc", "submitted_by", "review_reason"]
+
+  - name: ACTIVE
+    description: "Approved golden record in use."
+    allowed_transitions: ["DEPRECATED"]
+    required_fields: ["created_at_utc", "updated_at_utc", "source_system"]
+
+  - name: DEPRECATED
+    description: "Still queryable; planned for retirement. Use replacement mapping if available."
+    allowed_transitions: ["RETIRED", "ACTIVE"]
+    required_fields: ["deprecated_at_utc", "deprecated_reason"]
+
+  - name: RETIRED
+    description: "Not valid for new use; retained for compliance/traceability."
+    allowed_transitions: []
+    required_fields: ["retired_at_utc", "retired_reason", "retention_until"]
+
+  - name: REJECTED
+    description: "Rejected during review; stored for traceability."
+    allowed_transitions: []
+    required_fields: ["rejected_at_utc", "reject_reason"]
+
+policies:
+  soft_delete: true
+  retention_days:
+    ACTIVE: 3650
+    DEPRECATED: 3650
+    RETIRED: 3650
+    REJECTED: 365
